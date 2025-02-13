@@ -101,15 +101,16 @@ func main() {
 
 	var tt []Transfer
 
-	// Total N transfers
-	for i := 1; i <= N; i++ {
+	// User ID 1 transfers 1 rupee to every other user
+	// Total N-1 transfers
+	for i := 2; i <= N; i++ {
 		tt = append(tt, Transfer{1, i, 1})
 	}
 
 	displayTotalBalance()
 
 	var wg sync.WaitGroup
-	sem := make(chan struct{}, 50) // Limit to 10 concurrent goroutines
+	sem := make(chan struct{}, 20) // Limit to 20 concurrent goroutines
 
 	for _, t := range tt {
 		wg.Add(1)
